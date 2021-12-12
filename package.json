@@ -16,16 +16,20 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-pwa": "~4.5.15",
     "@vue/cli-plugin-router": "~4.5.15",
     "@vue/cli-plugin-vuex": "~4.5.15",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "autoprefixer": "^9.8.8",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^8.2.0",
-    "prettier": "2.5.1"
+    "postcss": "^7.0.39",
+    "prettier": "2.5.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }
