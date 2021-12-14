@@ -1,6 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
-
 module.exports = {
     content: ['./src/**/*.{html,js,vue}'],
     theme: {
@@ -10,6 +9,9 @@ module.exports = {
             },
             colors: {
                 sky: colors.sky,
+            },
+            maxWidth: {
+                64: '16rem',
             },
         },
     },
