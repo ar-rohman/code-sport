@@ -14,7 +14,6 @@
                     tabindex="0"></div>
             </div>
         </transition>
-
         <nav
             class="fixed left-0 top-0 min-h-screen sm:min-h-0 sm:static bg-white w-full max-w-64 sm:w-auto sm:max-w-none z-10 transform duration-300 ease-in-out sm:transform-none sm:translate-0"
             :class="[isToggle ? 'translate-x-0' : '-translate-x-64']">
@@ -26,18 +25,22 @@
                         height="30"
                         alt="Code Sport" />
                 </div>
-                <router-link
-                    to="/"
-                    @click="$emit('toggle-nav', false)"
-                    class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
-                    >Home</router-link
-                >
-                <router-link
-                    to="/about"
-                    @click="$emit('toggle-nav', false)"
-                    class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
-                    >About</router-link
-                >
+                <div :class="{ 'text-sky-500': isActivePage('/') }">
+                    <router-link
+                        to="/"
+                        @click="$emit('toggle-nav', false)"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        >Home</router-link
+                    >
+                </div>
+                <div :class="{ 'text-sky-500': isActivePage('/about') }">
+                    <router-link
+                        to="/about"
+                        @click="$emit('toggle-nav', false)"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        >About</router-link
+                    >
+                </div>
             </div>
         </nav>
     </div>
@@ -55,6 +58,9 @@ export default {
     methods: {
         sss() {
             console.log('test');
+        },
+        isActivePage(page) {
+            return this.$route.path === page;
         },
     },
     computed: {
