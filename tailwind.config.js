@@ -14,6 +14,11 @@ module.exports = {
                 64: '16rem',
             },
         },
+        screens: {
+            '2xs': '320px',
+            xs: '480px',
+            ...defaultTheme.screens,
+        },
     },
     plugins: [],
 };
