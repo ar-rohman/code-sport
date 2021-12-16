@@ -33,6 +33,14 @@
                         >Home</router-link
                     >
                 </div>
+                <div :class="{ 'text-sky-500': isActivePage('/matches') }">
+                    <router-link
+                        to="/matches"
+                        @click="$emit('toggle-nav', false)"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        >Matches</router-link
+                    >
+                </div>
                 <div :class="{ 'text-sky-500': isActivePage('/standings') }">
                     <router-link
                         to="/standings"
