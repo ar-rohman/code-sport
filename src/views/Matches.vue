@@ -16,17 +16,13 @@
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                        :class="[
-                                            isShow(dataMatch.isScore) ? 'text-right' : 'text-left',
-                                        ]">
+                                        class="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Home
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                        v-show="isShow(dataMatch.isScore)">
-                                        Score
+                                        class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {{ isShow(dataMatch.isScore) ? 'Score' : '' }}
                                     </th>
                                     <th
                                         scope="col"
@@ -63,16 +59,15 @@
                                             class="px-3 pb-4 text-sm text-gray-500 hidden sm:table-cell">
                                             {{ dateFormat(match.utcDate) }}
                                         </td>
-                                        <td
-                                            class="px-3 py-4 text-sm text-gray-500"
-                                            :class="{ 'text-right': isShow(dataMatch.isScore) }">
+                                        <td class="px-3 py-4 text-right text-sm text-gray-500">
                                             {{ match.homeTeam }}
                                         </td>
-                                        <td
-                                            class="px-3 py-4 text-center text-sm text-gray-500"
-                                            v-show="isShow(dataMatch.isScore)">
-                                            {{ match.score.homeTeam }} :
-                                            {{ match.score.awayTeam }}
+                                        <td class="px-3 py-4 text-center text-sm text-gray-500">
+                                            {{
+                                                isShow(dataMatch.isScore)
+                                                    ? `${match.score.homeTeam} : ${match.score.awayTeam}`
+                                                    : 'vs'
+                                            }}
                                         </td>
                                         <td class="px-3 py-4 text-sm text-gray-500">
                                             {{ match.awayTeam }}
