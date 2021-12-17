@@ -161,6 +161,7 @@ export default {
     },
     methods: {
         stringFormat(string) {
+            if (!string) return;
             // Replace underscore to space
             const replaceString = string.replace(/_/g, ' ');
             // Capitalized each first word
