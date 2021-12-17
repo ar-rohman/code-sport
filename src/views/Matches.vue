@@ -2,7 +2,7 @@
     <div>
         <h1 class="font-bold text-xl mb-8">Matches</h1>
         <div class="flex flex-col mb-10" v-for="(dataMatch, idx) in matches" :key="idx">
-            <div class="mb-2 font-bold text-gray-500">{{ stringFormat(dataMatch.stage) }}</div>
+            <div class="mb-2 font-semibold text-gray-600">{{ stringFormat(dataMatch.stage) }}</div>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -11,97 +11,83 @@
                                 <tr>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                                         Date
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                                        <div class="sm:hidden text-center has-tooltip">
-                                            <span
-                                                class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                >Played</span
-                                            >
-                                            P
-                                        </div>
-                                        <div class="hidden sm:table-cell uppercase">Status</div>
+                                        class="px-3 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        :class="[
+                                            isShow(dataMatch.isScore) ? 'text-right' : 'text-left',
+                                        ]">
+                                        Home
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                                        <div class="sm:hidden text-center has-tooltip">
-                                            <span
-                                                class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 mr-8 -mt-8"
-                                                >Won</span
-                                            >
-                                            W
-                                        </div>
-                                        <div class="hidden sm:table-cell uppercase">Home</div>
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                                        class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                         v-show="isShow(dataMatch.isScore)">
-                                        <div class="sm:hidden text-center has-tooltip">
-                                            <span
-                                                class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                >Drawn</span
-                                            >D
-                                        </div>
-                                        <div class="hidden sm:table-cell uppercase">Score</div>
+                                        Score
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                                        <div class="sm:hidden text-center has-tooltip">
-                                            <span
-                                                class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                >Lost</span
-                                            >L
-                                        </div>
-                                        <div class="hidden sm:table-cell uppercase">Away</div>
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Away
                                     </th>
                                     <th
                                         scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell"
                                         v-show="isShow(dataMatch.isGroup)">
-                                        <div class="sm:hidden text-center has-tooltip">
-                                            <span
-                                                class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                >Points</span
-                                            >P
-                                        </div>
-                                        <div class="hidden sm:table-cell uppercase">Group</div>
+                                        Group
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr v-for="(match, index) in dataMatch.data" :key="index">
-                                    <td class="px-3 py-4 text-center text-sm text-gray-500">
-                                        {{ dateFormat(match.utcDate) }}
-                                    </td>
-                                    <td class="px-3 py-4 text-center text-sm text-gray-500">
-                                        {{ stringFormat(match.status) }}
-                                    </td>
-                                    <td class="px-3 py-4 text-center text-sm text-gray-500">
-                                        {{ match.homeTeam }}
-                                    </td>
-                                    <td
-                                        class="px-3 py-4 text-center text-sm text-gray-500"
-                                        v-show="isShow(dataMatch.isScore)">
-                                        {{ match.score.homeTeam }} :
-                                        {{ match.score.awayTeam }}
-                                    </td>
-                                    <td
-                                        class="px-3 py-4 text-center text-sm text-gray-500 hidden sm:table-cell">
-                                        {{ match.awayTeam }}
-                                    </td>
-                                    <td
-                                        class="px-3 py-4 text-center text-sm text-gray-500 hidden sm:table-cell"
-                                        v-show="isShow(dataMatch.isGroup)">
-                                        {{ stringFormat(match.group) }}
-                                    </td>
-                                </tr>
+                            <tbody class="bg-white">
+                                <template v-for="(match, index) in dataMatch.data" :key="index">
+                                    <tr class="sm:hidden">
+                                        <td class="px-3 pt-4 text-xs text-gray-400" colspan="2">
+                                            {{ dateFormat(match.utcDate) }}
+                                        </td>
+                                        <td
+                                            class="px-3 pt-4 text-xs text-right text-gray-400"
+                                            v-show="isShow(dataMatch.isGroup)">
+                                            {{ stringFormat(match.group) }}
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200">
+                                        <td
+                                            class="px-3 pb-4 text-sm text-gray-500 hidden sm:table-cell">
+                                            {{ dateFormat(match.utcDate) }}
+                                        </td>
+                                        <td
+                                            class="px-3 py-4 text-sm text-gray-500"
+                                            :class="{ 'text-right': isShow(dataMatch.isScore) }">
+                                            {{ match.homeTeam }}
+                                        </td>
+                                        <td
+                                            class="px-3 py-4 text-center text-sm text-gray-500"
+                                            v-show="isShow(dataMatch.isScore)">
+                                            {{ match.score.homeTeam }} :
+                                            {{ match.score.awayTeam }}
+                                        </td>
+                                        <td class="px-3 py-4 text-sm text-gray-500">
+                                            {{ match.awayTeam }}
+                                        </td>
+                                        <td
+                                            class="px-3 py-4 text-sm text-gray-500 hidden sm:table-cell"
+                                            v-show="isShow(dataMatch.isGroup)">
+                                            {{ stringFormat(match.group) }}
+                                        </td>
+                                        <td
+                                            class="px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
+                                            {{ stringFormat(match.status) }}
+                                        </td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -128,7 +114,7 @@ export default {
         stringFormat(string) {
             if (!string) return;
             // Replace underscore to space
-            const replaceString = string.replace('_', ' ');
+            const replaceString = string.replace(/_/g, ' ');
             // Capitalized each first word
             const capitalized = replaceString.replace(
                 /\w\S*/g,
@@ -140,7 +126,7 @@ export default {
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // get timezone eg. Asia/Jakarta
             return new Intl.DateTimeFormat(this.country, {
                 hour12: false,
-                year: 'numeric',
+                year: '2-digit',
                 month: 'short',
                 day: 'numeric',
                 hour: 'numeric',
