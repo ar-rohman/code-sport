@@ -20,5 +20,11 @@ module.exports = {
             ...defaultTheme.screens,
         },
     },
+    variants: {
+        extend: {
+            backgroundColor: ['group-focus'],
+            textColor: ['group-focus'],
+        },
+    },
     plugins: [],
 };
