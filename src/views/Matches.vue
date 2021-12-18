@@ -131,7 +131,7 @@ export default {
             }).format(new Date(date));
         },
         async getStandings() {
-            await this.$axios('matches')
+            await this.$axios('competitions/2001/matches')
                 .then((response) => {
                     const { matches } = response.data;
                     let currentStage;

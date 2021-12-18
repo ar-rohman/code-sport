@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         async getTeams() {
-            await this.$axios('teams')
+            await this.$axios('competitions/2001/teams')
                 .then((response) => {
                     const { teams } = response.data;
                     let newTeams = [];

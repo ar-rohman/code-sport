@@ -172,7 +172,7 @@ export default {
             return capitalized;
         },
         async getStandings() {
-            await this.$axios('standings')
+            await this.$axios('competitions/2001/standings')
                 .then((response) => {
                     const { standings } = response.data;
                     this.standings = standings.filter((item) => {
