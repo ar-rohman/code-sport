@@ -18,13 +18,13 @@
             <div class="w-full flex justify-center sm:justify-start mr-8 sm:ml-0">
                 <img
                     src="../assets/images/logo/long-logo.png"
-                    class="hidden sm:block"
+                    class="hidden md:block"
                     width="200"
                     height="40"
                     alt="Code Sport" />
                 <img
                     src="../assets/images/logo/logo.png"
-                    class="sm:hidden"
+                    class="md:hidden"
                     width="40"
                     height="40"
                     alt="Code Sport" />
