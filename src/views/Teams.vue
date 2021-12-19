@@ -64,7 +64,7 @@ export default {
                 });
         },
         teamDetail(id) {
-            console.log(id);
+            this.$router.push({ path: `/team/${id}` });
         },
     },
 };
