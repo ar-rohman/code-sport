@@ -2,7 +2,16 @@
     <div>
         <div class="flex gap-4 mb-10">
             <div>
-                <img :src="team.crestUrl" :alt="team.shortName" class="h-12 w-auto" />
+                <img
+                    :src="team.crestUrl"
+                    :alt="team.shortName"
+                    class="h-12 w-auto"
+                    v-if="team.crestUrl" />
+                <img
+                    src="../assets/images/logo/logo.png"
+                    :alt="team.name"
+                    class="h-12 w-auto"
+                    v-else />
             </div>
             <div>
                 <div class="font-bold text-xl">{{ team.shortName }}</div>
