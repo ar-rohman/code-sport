@@ -113,7 +113,7 @@
                             </svg>
                             <div class="mt-4">{{ squad.name }}</div>
                         </div>
-                        <div class="grid grid-cols-1 xs:grid-cols-2 mt-6 gap-6">
+                        <div class="grid grid-cols-1 2xs:grid-cols-2 mt-6 gap-6">
                             <div v-if="squad.countryOfBirth">
                                 <div class="text-xs text-gray-500">Country Of Birth</div>
                                 <div>{{ squad.countryOfBirth }}</div>
