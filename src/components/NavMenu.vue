@@ -29,7 +29,7 @@
                     <router-link
                         to="/"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >Home</router-link
                     >
                 </div>
@@ -37,7 +37,7 @@
                     <router-link
                         to="/matches"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >Matches</router-link
                     >
                 </div>
@@ -45,7 +45,7 @@
                     <router-link
                         to="/standings"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >Standings</router-link
                     >
                 </div>
@@ -53,7 +53,7 @@
                     <router-link
                         to="/teams"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >Teams</router-link
                     >
                 </div>
@@ -61,7 +61,7 @@
                     <router-link
                         to="/stats"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >Stats</router-link
                     >
                 </div>
@@ -69,7 +69,7 @@
                     <router-link
                         to="/about"
                         @click="$emit('toggle-nav', false)"
-                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none"
+                        class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
                         >About</router-link
                     >
                 </div>
