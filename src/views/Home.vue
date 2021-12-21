@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 mt-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Matches</div>
