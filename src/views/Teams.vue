@@ -17,7 +17,7 @@
                         ssheight="50"
                         v-if="team.isValidImage" />
                     <img
-                        src="../assets/images/logo/logo.png"
+                        src="../assets/images/shield-logo.svg"
                         :alt="team.name"
                         width="80"
                         ssheight="50"
