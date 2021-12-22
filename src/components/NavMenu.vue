@@ -82,15 +82,29 @@
 export default {
     name: 'NavMenu',
     props: ['toggle'],
+    data() {
+        return {
+            width: document.documentElement.clientWidth,
+        };
+    },
+    created() {
+        window.addEventListener('resize', this.getScreenSize);
+    },
+    unmounted() {
+        window.removeEventListener('resize', this.getScreenSize);
+    },
     methods: {
         isActivePage(page) {
             return this.$route.path === page;
+        },
+        getScreenSize() {
+            this.width = document.documentElement.clientWidth;
         },
     },
     computed: {
         isToggle() {
             const body = document.querySelector('body');
-            this.toggle
+            this.toggle && this.width < 640
                 ? body.classList.add('overflow-hidden')
                 : body.classList.remove('overflow-hidden');
             return this.toggle;

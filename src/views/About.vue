@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="flex justify-between">
-            <div class="md:pr-10">
+        <div class="flex xs:justify-between">
+            <div class="xs:pr-10">
                 <h1 class="font-bold text-xl mb-8">About</h1>
                 <p>
                     <span class="font-bold text-sky-700">Code Sport</span>
@@ -31,14 +31,14 @@
                 <p class="mb-4">Version {{ version }}</p>
                 <p>Copyright &copy; 2020 - 2021</p>
             </div>
-            <div class="hidden md:flex justify-start">
+            <div class="hidden xs:flex justify-start">
                 <img
                     class="w-96"
                     src="../assets/images/football-player-Illustration.svg"
                     alt="football-player-Illustration" />
             </div>
         </div>
-        <div class="hidden md:block fixed bottom-2">
+        <div class="hidden xs:block fixed bottom-2">
             <a
                 class="text-sky-500 hover:text-sky-600 focus:text-sky-700 text-xs"
                 href="https://unblast.com/free-football-player-vector-illustration-ai"
