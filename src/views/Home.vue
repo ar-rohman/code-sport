@@ -22,7 +22,9 @@
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Matches</div>
-                    <div class="text-sm text-sky-500 self-end">View all</div>
+                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="matchPage">
+                        View all
+                    </div>
                 </div>
                 <div class="flex flex-col gap-4">
                     <div
@@ -43,7 +45,9 @@
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Results</div>
-                    <div class="text-sm text-sky-500 self-end">View all</div>
+                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="matchPage">
+                        View all
+                    </div>
                 </div>
                 <div class="flex flex-col gap-4">
                     <div
@@ -64,7 +68,9 @@
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Top Scorer</div>
-                    <div class="text-sm text-sky-500 self-end">View all</div>
+                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="scorerPage">
+                        View all
+                    </div>
                 </div>
                 <div class="flex flex-col gap-4">
                     <div
@@ -134,6 +140,12 @@ export default {
                 .catch((error) => {
                     console.log(error.response);
                 });
+        },
+        matchPage() {
+            this.$router.push({ path: `/matches` });
+        },
+        scorerPage() {
+            this.$router.push({ path: `/stats` });
         },
         shortDayMonth(date) {
             const dt = new Date(date);
