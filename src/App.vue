@@ -1,11 +1,11 @@
 <template>
     <div class="font-sans min-h-screen max-w-screen-xl mx-auto text-gray-700 bg-white">
-        <div v-if="showAppHeader">
+        <template v-if="showAppHeader">
             <app-header />
-        </div>
-        <div v-else>
+        </template>
+        <template v-else>
             <back-header />
-        </div>
+        </template>
         <main class="m-4 sm:mx-10">
             <router-view />
         </main>

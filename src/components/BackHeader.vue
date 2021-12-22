@@ -1,5 +1,5 @@
 <template>
-    <div class="flex w-full p-3 border-b sticky top-0 bg-white">
+    <header class="flex w-full p-3 border-b sticky top-0 bg-white">
         <button @click.stop="$router.go(-1)">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,7 @@
                     clip-rule="evenodd" />
             </svg>
         </button>
-    </div>
+    </header>
 </template>
 
 <script>
