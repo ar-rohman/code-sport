@@ -2,7 +2,7 @@
     <div>
         <h1 class="font-bold text-xl mb-8">Standings</h1>
         <div class="flex flex-col mb-10" v-for="(value, index) in standings" :key="index">
-            <div class="mb-2 font-bold text-gray-500">{{ stringFormat(value.group) }}</div>
+            <div class="mb-2 font-semibold text-gray-600">{{ stringFormat(value.group) }}</div>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -16,31 +16,17 @@
                                     </th>
                                     <th
                                         scope="col"
-                                        class="p-3 text-xs font-medium text-gray-500 tracking-wider">
+                                        class="p-3 text-right text-xs font-medium text-gray-500 tracking-wider">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Played</span
-                                                >
-                                                P
-                                            </div>
-                                            <div class="text-right hidden md:table-cell uppercase">
-                                                Played
-                                            </div>
+                                            <div class="md:hidden">P</div>
+                                            <div class="hidden md:table-cell uppercase">Played</div>
                                         </div>
                                     </th>
                                     <th
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 tracking-wider">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 mr-8 -mt-8"
-                                                    >Won</span
-                                                >
-                                                W
-                                            </div>
+                                            <div class="md:hidden">W</div>
                                             <div class="hidden md:table-cell uppercase">Won</div>
                                         </div>
                                     </th>
@@ -48,12 +34,7 @@
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 tracking-wider">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Drawn</span
-                                                >D
-                                            </div>
+                                            <div class="md:hidden">D</div>
                                             <div class="hidden md:table-cell uppercase">Drawn</div>
                                         </div>
                                     </th>
@@ -61,12 +42,7 @@
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 tracking-wider">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Lost</span
-                                                >L
-                                            </div>
+                                            <div class="md:hidden">L</div>
                                             <div class="hidden md:table-cell uppercase">Lost</div>
                                         </div>
                                     </th>
@@ -74,12 +50,7 @@
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider hidden xs:table-cell">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Goals For</span
-                                                >GF
-                                            </div>
+                                            <div class="md:hidden">GF</div>
                                             <div class="hidden md:table-cell uppercase">
                                                 Goals For
                                             </div>
@@ -89,12 +60,7 @@
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider hidden xs:table-cell">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Goals Against</span
-                                                >GA
-                                            </div>
+                                            <div class="md:hidden">GA</div>
                                             <div class="hidden md:table-cell uppercase">
                                                 Goals Against
                                             </div>
@@ -104,12 +70,7 @@
                                         scope="col"
                                         class="p-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider hidden xs:table-cell">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Goal Difference</span
-                                                >GD
-                                            </div>
+                                            <div class="md:hidden">GD</div>
                                             <div class="hidden md:table-cell uppercase">
                                                 Goal Difference
                                             </div>
@@ -119,12 +80,7 @@
                                         scope="col"
                                         class="pl-3 pr-6 text-right text-xs font-medium text-gray-500 tracking-wider">
                                         <div class="flex justify-end">
-                                            <div class="md:hidden text-right has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8"
-                                                    >Points</span
-                                                >P
-                                            </div>
+                                            <div class="md:hidden">P</div>
                                             <div class="hidden md:table-cell uppercase">Points</div>
                                         </div>
                                     </th>
@@ -136,18 +92,14 @@
                                     :key="tableIndex">
                                     <td class="pl-6 pr-3 py-4">
                                         <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 has-tooltip">
-                                                <span
-                                                    class="tooltip rounded shadow-lg py-2 px-4 bg-sky-100 text-sky-500 -mt-8 xs:hidden"
-                                                    >{{ tableValue.team.name }}</span
-                                                >
+                                            <div class="flex-shrink-0 h-10 w-10">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
                                                     :src="tableValue.team.crestUrl"
                                                     :alt="tableValue.team.name" />
                                             </div>
                                             <div
-                                                class="ml-4 text-sm font-medium text-gray-900 hidden xs:table-cell">
+                                                class="ml-4 text-xs xs:text-sm font-medium text-gray-900">
                                                 {{ tableValue.team.name }}
                                             </div>
                                         </div>

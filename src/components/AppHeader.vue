@@ -15,7 +15,7 @@
                         d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
             </button>
-            <div class="w-full flex justify-center sm:justify-start mr-8 sm:ml-0">
+            <div class="w-full flex justify-center sm:justify-start sm:mr-8 sm:ml-0">
                 <img
                     src="../assets/images/logo/long-logo.png"
                     class="hidden md:block"
