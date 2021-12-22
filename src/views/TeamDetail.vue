@@ -8,7 +8,7 @@
                     class="h-12 w-auto"
                     v-if="team.crestUrl" />
                 <img
-                    src="../assets/images/logo/logo.png"
+                    src="../assets/images/shield-logo.svg"
                     :alt="team.name"
                     class="h-12 w-auto"
                     v-else />
