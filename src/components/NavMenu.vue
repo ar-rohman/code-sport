@@ -15,7 +15,7 @@
             </div>
         </transition>
         <nav
-            class="fixed left-0 top-0 bottom-0 sm:static bg-white w-full max-w-64 sm:w-auto sm:max-w-none z-10 transform duration-300 ease-in-out sm:transform-none sm:translate-0"
+            class="fixed left-0 top-0 bottom-0 sm:static bg-white w-full max-w-64 sm:w-auto sm:max-w-none z-10 transform duration-300 ease-in-out sm:transform-none sm:translate-0 overflow-y-auto"
             :class="[isToggle ? 'translate-x-0' : '-translate-x-64']">
             <div class="flex flex-col gap-2 sm:flex-row sm:gap-8 p-6 sm:p-0">
                 <div class="sm:hidden mb-4">
@@ -82,29 +82,19 @@
 export default {
     name: 'NavMenu',
     props: ['toggle'],
-    data() {
-        return {
-            // isToggle: this.toggle,
-        };
-    },
     methods: {
-        sss() {
-            console.log('test');
-        },
         isActivePage(page) {
             return this.$route.path === page;
         },
     },
     computed: {
         isToggle() {
+            const body = document.querySelector('body');
+            this.toggle
+                ? body.classList.add('overflow-hidden')
+                : body.classList.remove('overflow-hidden');
             return this.toggle;
         },
-        // toggleNavMenu() {
-        //     return {
-        //         active: this.toggle,
-        //         ' ': this.error && this.error.type === 'fatal',
-        //     };
-        // },
     },
 };
 </script>
