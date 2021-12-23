@@ -89,12 +89,18 @@
                 </div>
             </div>
         </div>
+        <back-to-top />
     </div>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop.vue';
+
 export default {
     name: 'MatchesPage',
+    components: {
+        BackToTop,
+    },
     data() {
         return {
             matches: null,

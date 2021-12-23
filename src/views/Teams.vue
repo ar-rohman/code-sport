@@ -28,12 +28,18 @@
                 </div>
             </div>
         </div>
+        <back-to-top />
     </div>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop.vue';
+
 export default {
     name: 'TeamsPage',
+    components: {
+        BackToTop,
+    },
     data() {
         return {
             teams: [],

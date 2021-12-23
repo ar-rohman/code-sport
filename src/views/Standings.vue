@@ -138,12 +138,18 @@
                 </div>
             </div>
         </div>
+        <back-to-top />
     </div>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop.vue';
+
 export default {
     name: 'StandingsPage',
+    components: {
+        BackToTop,
+    },
     data() {
         return {
             standings: null,

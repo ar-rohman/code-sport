@@ -6,7 +6,7 @@
         <template v-else>
             <back-header />
         </template>
-        <main class="m-4 sm:mx-10">
+        <main class="m-4 mb-20 sm:mx-10">
             <router-view />
         </main>
     </div>

@@ -68,12 +68,18 @@
                 Load more
             </button>
         </div>
+        <back-to-top />
     </div>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop.vue';
+
 export default {
     name: 'StatsPage',
+    components: {
+        BackToTop,
+    },
     data() {
         return {
             scorers: [],
