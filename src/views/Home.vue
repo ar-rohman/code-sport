@@ -22,7 +22,9 @@
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Matches</div>
-                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="matchPage">
+                    <div
+                        class="text-sm text-sky-500 self-end cursor-pointer"
+                        @click="matchPage(matchLink)">
                         View all
                     </div>
                 </div>
@@ -45,7 +47,9 @@
             <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold text-base xs:text-lg">Results</div>
-                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="matchPage">
+                    <div
+                        class="text-sm text-sky-500 self-end cursor-pointer"
+                        @click="matchPage(resultLink)">
                         View all
                     </div>
                 </div>
@@ -100,6 +104,8 @@ export default {
             results: [],
             scorers: [],
             season: null,
+            matchLink: null,
+            resultLink: null,
         };
     },
     created() {
@@ -115,17 +121,17 @@ export default {
                         return element.status.toUpperCase() === 'SCHEDULED';
                     });
                     this.matches = scheduled.slice(0, 5);
-
+                    this.matchLink = this.matches[0].stage;
                     const finished = data.filter((element) => {
                         return element.status.toUpperCase() === 'FINISHED';
                     });
                     this.results = finished.slice(-5).reverse();
+                    this.resultLink = this.results[0].stage;
 
                     const season = data[0].season;
                     const startSeason = season.startDate.split('-')[0];
                     const endSeason = season.endDate.split('-')[0];
                     this.season = `${startSeason} - ${endSeason}`;
-                    console.log(data);
                 })
                 .catch((error) => {
                     console.log(error.response);
@@ -135,14 +141,13 @@ export default {
             await this.$axios('competitions/2001/scorers?limit=5')
                 .then((response) => {
                     this.scorers = response.data.scorers;
-                    console.log(response.data.scorers);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
-        matchPage() {
-            this.$router.push({ path: `/matches` });
+        matchPage(hash) {
+            this.$router.push({ path: `/matches`, hash: `#${hash}` });
         },
         scorerPage() {
             this.$router.push({ path: `/stats` });

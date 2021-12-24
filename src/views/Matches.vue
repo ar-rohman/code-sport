@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <h1 class="font-bold text-xl mb-8">Matches</h1>
-        <div class="flex flex-col mb-10" v-for="(dataMatch, idx) in matches" :key="idx">
-            <div class="mb-2 font-semibold text-gray-600">{{ stringFormat(dataMatch.stage) }}</div>
+    <h1 class="font-bold text-xl mb-8">Matches</h1>
+    <template v-for="(dataMatch, idx) in matches" :key="idx">
+        <div class="flex flex-col mb-10" v-if="dataMatch.data.length > 0">
+            <div class="mb-2 font-semibold text-gray-600" :id="dataMatch.stage">
+                {{ stringFormat(dataMatch.stage) }}
+            </div>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -32,7 +34,7 @@
                                     <th
                                         scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell"
-                                        v-show="isShow(dataMatch.isGroup)">
+                                        v-if="isShow(dataMatch.isGroup)">
                                         Group
                                     </th>
                                     <th
@@ -50,7 +52,7 @@
                                         </td>
                                         <td
                                             class="px-6 pt-4 text-xs text-right text-gray-400"
-                                            v-show="isShow(dataMatch.isGroup)">
+                                            v-if="isShow(dataMatch.isGroup)">
                                             {{ stringFormat(match.group) }}
                                         </td>
                                     </tr>
@@ -74,7 +76,7 @@
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm text-gray-500 hidden sm:table-cell"
-                                            v-show="isShow(dataMatch.isGroup)">
+                                            v-if="isShow(dataMatch.isGroup)">
                                             {{ stringFormat(match.group) }}
                                         </td>
                                         <td
@@ -89,8 +91,8 @@
                 </div>
             </div>
         </div>
-        <back-to-top />
-    </div>
+    </template>
+    <back-to-top />
 </template>
 
 <script>
@@ -108,8 +110,17 @@ export default {
         };
     },
     created() {
-        this.getStandings();
+        this.getMatches();
         this.getCountry();
+    },
+    beforeUpdate() {
+        var section = this.$router.currentRoute.value.hash.replace('#', '');
+        if (section) {
+            this.$nextTick(() => {
+                const sectionId = window.document.getElementById(section);
+                sectionId.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
     },
     methods: {
         stringFormat(string) {
@@ -136,7 +147,7 @@ export default {
                 timeZone: timezone,
             }).format(new Date(date));
         },
-        async getStandings() {
+        async getMatches() {
             await this.$axios('competitions/2001/matches')
                 .then((response) => {
                     const { matches } = response.data;
@@ -187,8 +198,8 @@ export default {
                         }
                         currentStage = element.stage;
                     });
-                    console.log(dataMatches);
                     this.matches = dataMatches;
+                    // console.log(dataMatches);
                 })
                 .catch((error) => {
                     console.log(error.response);
