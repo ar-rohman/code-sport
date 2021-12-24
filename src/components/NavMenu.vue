@@ -57,12 +57,12 @@
                         >Teams</router-link
                     >
                 </div>
-                <div :class="{ 'text-sky-500': isActivePage('/stats') }">
+                <div :class="{ 'text-sky-500': isActivePage('/scorers') }">
                     <router-link
-                        to="/stats"
+                        to="/scorers"
                         @click="$emit('toggle-nav', false)"
                         class="hover:text-sky-500 focus:text-sky-600 focus:outline-none flex items-center h-10"
-                        >Stats</router-link
+                        >Scorers</router-link
                     >
                 </div>
                 <div :class="{ 'text-sky-500': isActivePage('/about') }">

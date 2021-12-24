@@ -150,7 +150,7 @@ export default {
             this.$router.push({ path: `/matches`, hash: `#${hash}` });
         },
         scorerPage() {
-            this.$router.push({ path: `/stats` });
+            this.$router.push({ path: `/scorers` });
         },
         shortDayMonth(date) {
             const dt = new Date(date);

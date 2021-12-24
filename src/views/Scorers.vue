@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="font-bold text-xl mb-8">Stats</h1>
+        <h1 class="font-bold text-xl mb-8">Scorers</h1>
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -76,7 +76,7 @@
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
-    name: 'StatsPage',
+    name: 'ScorersPage',
     components: {
         BackToTop,
     },

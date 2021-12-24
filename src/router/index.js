@@ -28,9 +28,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "teams" */ '../views/TeamDetail.vue'),
     },
     {
-        path: '/stats',
-        name: 'StatsPage',
-        component: () => import(/* webpackChunkName: "stats" */ '../views/Stats.vue'),
+        path: '/scorers',
+        name: 'ScorersPage',
+        component: () => import(/* webpackChunkName: "scorers" */ '../views/Scorers.vue'),
     },
     {
         path: '/about',
