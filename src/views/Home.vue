@@ -85,8 +85,9 @@
                             <div>{{ scorer.player.name }}</div>
                             <div class="text-sm text-gray-500">{{ scorer.team.name }}</div>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex flex-col items-center">
                             <div class="font-bold">{{ scorer.numberOfGoals }}</div>
+                            <div class="text-xs">Goals</div>
                         </div>
                     </div>
                 </div>
