@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -89,40 +90,53 @@ export default {
         };
     },
     created() {
-        this.getScores();
+        this.getScorer.length > 0 ? this.scorerData(this.getScorer) : this.fetchScorer();
+    },
+    computed: {
+        ...mapGetters({
+            getScorer: 'scorer/getScorer',
+        }),
     },
     methods: {
-        async getScores() {
+        async fetchScorer() {
+            console.log(this.getScorer);
             await this.$axios('competitions/2001/scorers?limit=1000000')
                 .then((response) => {
                     const { scorers } = response.data;
-                    scorers.sort((a, b) => b.numberOfGoals - a.numberOfGoals);
-                    let rank = 1;
-                    let goal = 0;
-                    const newScorers = scorers.map((element, index) => {
-                        if (index > 0 && element.numberOfGoals < goal) {
-                            rank++;
-                        }
-                        goal = element.numberOfGoals;
-                        return {
-                            player: element.player.name,
-                            team: element.team.name,
-                            goal: element.numberOfGoals,
-                            rank: rank,
-                        };
-                    });
-                    this.scorers = newScorers.slice(0, 10);
-                    this.fullScorers = newScorers;
-                    this.tenScorers = newScorers.slice(0, 10);
+                    this.scorerData(scorers);
+                    this.setScorer(scorers);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
+        scorerData(scorers) {
+            scorers.sort((a, b) => b.numberOfGoals - a.numberOfGoals);
+            let rank = 1;
+            let goal = 0;
+            const newScorers = scorers.map((element, index) => {
+                if (index > 0 && element.numberOfGoals < goal) {
+                    rank++;
+                }
+                goal = element.numberOfGoals;
+                return {
+                    player: element.player.name,
+                    team: element.team.name,
+                    goal: element.numberOfGoals,
+                    rank: rank,
+                };
+            });
+            this.scorers = newScorers.slice(0, 10);
+            this.fullScorers = newScorers;
+            this.tenScorers = newScorers.slice(0, 10);
+        },
         loadMore() {
             this.scorers = this.fullScorers;
             this.showLoadMore = false;
         },
+        ...mapActions({
+            setScorer: 'scorer/set',
+        }),
     },
 };
 </script>

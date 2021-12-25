@@ -82,11 +82,11 @@
                         v-for="(scorer, index) in scorers"
                         :key="index">
                         <div class="flex justify-between flex-col">
-                            <div>{{ scorer.player.name }}</div>
-                            <div class="text-sm text-gray-500">{{ scorer.team.name }}</div>
+                            <div>{{ scorer.player }}</div>
+                            <div class="text-sm text-gray-500">{{ scorer.team }}</div>
                         </div>
                         <div class="flex flex-col items-center">
-                            <div class="font-bold">{{ scorer.numberOfGoals }}</div>
+                            <div class="font-bold">{{ scorer.goal }}</div>
                             <div class="text-xs">Goals</div>
                         </div>
                     </div>
@@ -97,6 +97,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
     name: 'HomePage',
     data() {
@@ -110,43 +112,71 @@ export default {
         };
     },
     created() {
-        this.getMatches();
-        this.getScores();
+        // this.getMatches();
+        this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
+        this.getScorer.length > 0 ? this.scorerData(this.getScorer) : this.fetchScorer();
+    },
+    computed: {
+        ...mapGetters({
+            getMatch: 'match/getMatch',
+            getScorer: 'scorer/getScorer',
+        }),
     },
     methods: {
-        async getMatches() {
+        async fetchMatch() {
             await this.$axios('competitions/2001/matches')
                 .then((response) => {
                     const data = response.data.matches;
-                    const scheduled = data.filter((element) => {
-                        return element.status.toUpperCase() === 'SCHEDULED';
-                    });
-                    this.matches = scheduled.slice(0, 5);
-                    this.matchLink = this.matches[0].stage;
-                    const finished = data.filter((element) => {
-                        return element.status.toUpperCase() === 'FINISHED';
-                    });
-                    this.results = finished.slice(-5).reverse();
-                    this.resultLink = this.results[0].stage;
-
-                    const season = data[0].season;
-                    const startSeason = season.startDate.split('-')[0];
-                    const endSeason = season.endDate.split('-')[0];
-                    this.season = `${startSeason} - ${endSeason}`;
+                    this.matchData(data);
+                    this.setMatch(data);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
-        async getScores() {
-            await this.$axios('competitions/2001/scorers?limit=5')
+        async fetchScorer() {
+            await this.$axios('competitions/2001/scorers?limit=1000000')
                 .then((response) => {
-                    this.scorers = response.data.scorers;
+                    const { scorers } = response.data;
+                    this.scorerData(scorers);
+                    this.setScorer(scorers);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
+        matchData(match) {
+            const scheduled = match.filter((element) => {
+                return element.status.toUpperCase() === 'SCHEDULED';
+            });
+            this.matches = scheduled.slice(0, 5);
+            this.matchLink = this.matches[0].stage;
+            const finished = match.filter((element) => {
+                return element.status.toUpperCase() === 'FINISHED';
+            });
+            this.results = finished.slice(-5).reverse();
+            this.resultLink = this.results[0].stage;
+
+            const season = match[0].season;
+            const startSeason = season.startDate.split('-')[0];
+            const endSeason = season.endDate.split('-')[0];
+            this.season = `${startSeason} - ${endSeason}`;
+        },
+        scorerData(scorers) {
+            scorers.sort((a, b) => b.numberOfGoals - a.numberOfGoals);
+            const newScorers = scorers.map((element) => {
+                return {
+                    player: element.player.name,
+                    team: element.team.name,
+                    goal: element.numberOfGoals,
+                };
+            });
+            this.scorers = newScorers.slice(0, 5);
+        },
+        ...mapActions({
+            setMatch: 'match/set',
+            setScorer: 'scorer/set',
+        }),
         matchPage(hash) {
             this.$router.push({ path: `/matches`, hash: `#${hash}` });
         },

@@ -143,6 +143,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -156,7 +157,13 @@ export default {
         };
     },
     created() {
-        this.getStandings();
+        this.getStanding.length > 0 ? this.standingData(this.getStanding) : this.fetchStanding();
+        // this.getStandings();
+    },
+    computed: {
+        ...mapGetters({
+            getStanding: 'standing/getStanding',
+        }),
     },
     methods: {
         stringFormat(string) {
@@ -170,18 +177,25 @@ export default {
             );
             return capitalized;
         },
-        async getStandings() {
+        async fetchStanding() {
             await this.$axios('competitions/2001/standings')
                 .then((response) => {
                     const { standings } = response.data;
-                    this.standings = standings.filter((item) => {
-                        return item.table.length > 0;
-                    });
+                    this.standingData(standings);
+                    this.setStanding(standings);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
+        standingData(standing) {
+            this.standings = standing.filter((item) => {
+                return item.table.length > 0;
+            });
+        },
+        ...mapActions({
+            setStanding: 'standing/set',
+        }),
     },
 };
 </script>

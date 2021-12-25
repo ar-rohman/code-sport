@@ -151,6 +151,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -167,9 +168,34 @@ export default {
     },
     created() {
         this.teamId = this.$route.params.id;
-        this.getTeam();
+        // this.teamById ? this.teamDetailData(this.teamById) : this.fetchTeamDetail();
+        if (
+            this.teamById().length > 0 // &&
+            // Object.keys(this.teamById()).length === 0 &&
+            // Object.getPrototypeOf(this.teamById()) === Object.prototype
+        ) {
+            console.log('nah');
+            console.log(this.teamById());
+            this.teamDetailData(this.teamById()[0]);
+        } else {
+            console.log('salah bos');
+            console.log(this.teamById());
+            this.fetchTeamDetail();
+        }
+        // this.fetchTeamDetail();
+        // this.teamById();
+        this.getTeamDetail;
+        console.log(this.getTeamDetail(this.teamId));
+        // this.teamByIda();
+    },
+    computed: {
+        ...mapGetters('team', ['getTeamDetail']),
     },
     methods: {
+        teamById() {
+            return this.$store.getters['team/getTeamDetail'](this.teamId);
+            // return this.getTeamDetail(this.teamId);
+        },
         stringFormat(string) {
             if (!string) return;
             // Replace underscore to space
@@ -181,15 +207,21 @@ export default {
             );
             return capitalized;
         },
-        async getTeam() {
+        async fetchTeamDetail() {
             await this.$axios(`teams/${this.teamId}`)
                 .then((response) => {
-                    this.team = response.data;
+                    const { data } = response;
+                    this.teamDetailData(data);
+                    this.setTeamDetail(data);
                 })
                 .catch((error) => {
-                    console.log(error.response);
+                    console.log('error', error);
                 });
         },
+        teamDetailData(teamDetail) {
+            this.team = teamDetail;
+        },
+        ...mapActions('team', ['setTeamDetail']),
     },
 };
 </script>

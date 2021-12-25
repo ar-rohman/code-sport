@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -110,7 +111,8 @@ export default {
         };
     },
     created() {
-        this.getMatches();
+        this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
+        // this.getMatches();
         this.getCountry();
     },
     beforeUpdate() {
@@ -121,6 +123,11 @@ export default {
                 sectionId.scrollIntoView({ behavior: 'smooth' });
             });
         }
+    },
+    computed: {
+        ...mapGetters({
+            getMatch: 'match/getMatch',
+        }),
     },
     methods: {
         stringFormat(string) {
@@ -147,64 +154,68 @@ export default {
                 timeZone: timezone,
             }).format(new Date(date));
         },
-        async getMatches() {
+        async fetchMatch() {
             await this.$axios('competitions/2001/matches')
                 .then((response) => {
                     const { matches } = response.data;
-                    let currentStage;
-                    let dataMatches = [];
-                    matches.map((element) => {
-                        if (element.stage === currentStage) {
-                            dataMatches.map((el) => {
-                                if (el.stage === element.stage) {
-                                    el.data.push({
-                                        awayTeam: element.awayTeam.name,
-                                        homeTeam: element.homeTeam.name,
-                                        score: {
-                                            awayTeam: element.score.fullTime.awayTeam,
-                                            homeTeam: element.score.fullTime.homeTeam,
-                                        },
-                                        group: element.group,
-                                        status: element.status,
-                                        utcDate: element.utcDate,
-                                    });
-                                    el.isGroup.push(element.group);
-                                    el.isScore.push(element.score.fullTime.homeTeam);
-                                    el.isScore.push(element.score.fullTime.awayTeam);
-                                }
-                            });
-                        } else {
-                            dataMatches.push({
-                                stage: element.stage,
-                                data: [
-                                    {
-                                        awayTeam: element.awayTeam.name,
-                                        homeTeam: element.homeTeam.name,
-                                        score: {
-                                            awayTeam: element.score.fullTime.awayTeam,
-                                            homeTeam: element.score.fullTime.homeTeam,
-                                        },
-                                        group: element.group,
-                                        status: element.status,
-                                        utcDate: element.utcDate,
-                                    },
-                                ],
-                                isGroup: [element.group],
-                                isScore: [
-                                    element.score.fullTime.homeTeam,
-                                    element.score.fullTime.awayTeam,
-                                ],
-                            });
-                        }
-                        currentStage = element.stage;
-                    });
-                    this.matches = dataMatches;
+                    this.matchData(matches);
+                    this.setMatch(matches);
                     // console.log(dataMatches);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
+        matchData(data) {
+            let currentStage;
+            let dataMatches = [];
+            data.map((element) => {
+                if (element.stage === currentStage) {
+                    dataMatches.map((el) => {
+                        if (el.stage === element.stage) {
+                            el.data.push({
+                                awayTeam: element.awayTeam.name,
+                                homeTeam: element.homeTeam.name,
+                                score: {
+                                    awayTeam: element.score.fullTime.awayTeam,
+                                    homeTeam: element.score.fullTime.homeTeam,
+                                },
+                                group: element.group,
+                                status: element.status,
+                                utcDate: element.utcDate,
+                            });
+                            el.isGroup.push(element.group);
+                            el.isScore.push(element.score.fullTime.homeTeam);
+                            el.isScore.push(element.score.fullTime.awayTeam);
+                        }
+                    });
+                } else {
+                    dataMatches.push({
+                        stage: element.stage,
+                        data: [
+                            {
+                                awayTeam: element.awayTeam.name,
+                                homeTeam: element.homeTeam.name,
+                                score: {
+                                    awayTeam: element.score.fullTime.awayTeam,
+                                    homeTeam: element.score.fullTime.homeTeam,
+                                },
+                                group: element.group,
+                                status: element.status,
+                                utcDate: element.utcDate,
+                            },
+                        ],
+                        isGroup: [element.group],
+                        isScore: [element.score.fullTime.homeTeam, element.score.fullTime.awayTeam],
+                    });
+                }
+                currentStage = element.stage;
+            });
+            this.matches = dataMatches;
+        },
+        ...mapActions({
+            setMatch: 'match/set',
+        }),
         // Get country code
         async getCountry() {
             await this.$axios('https://ip2c.org/s', true)

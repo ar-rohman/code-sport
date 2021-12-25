@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -46,29 +47,41 @@ export default {
         };
     },
     created() {
-        this.getTeams();
+        this.getTeam.length > 0 ? this.teamData(this.getTeam) : this.fetchTeam();
+    },
+    computed: {
+        ...mapGetters({
+            getTeam: 'team/getTeam',
+        }),
     },
     methods: {
-        async getTeams() {
+        async fetchTeam() {
             await this.$axios('competitions/2001/teams')
                 .then((response) => {
                     const { teams } = response.data;
-                    let newTeams = [];
-                    teams.forEach(async (team) => {
-                        newTeams.push({
-                            id: team.id,
-                            name: team.name,
-                            shortName: team.shortName,
-                            image: team.crestUrl,
-                            isValidImage: !!team.crestUrl,
-                        });
-                    });
-                    this.teams = newTeams;
+                    this.teamData(teams);
+                    this.setTeam(teams);
                 })
                 .catch((error) => {
                     console.log(error.response);
                 });
         },
+        teamData(teams) {
+            let newTeams = [];
+            teams.forEach(async (team) => {
+                newTeams.push({
+                    id: team.id,
+                    name: team.name,
+                    shortName: team.shortName,
+                    image: team.crestUrl,
+                    isValidImage: !!team.crestUrl,
+                });
+            });
+            this.teams = newTeams;
+        },
+        ...mapActions({
+            setTeam: 'team/setTeam',
+        }),
         teamDetail(id) {
             this.$router.push({ path: `/team/${id}` });
         },
