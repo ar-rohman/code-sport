@@ -1,7 +1,7 @@
 <template>
     <header
-        class="flex justify-between items-center sticky top-0 h-20 bg-white sm:backdrop-filter sm:backdrop-blur bg-opacity-30"
-        :class="{ 'sm:border-b sm:border-gray-200': showBorder }">
+        class="flex justify-between items-center sticky top-0 h-20 bg-white sm:backdrop-filter sm:backdrop-blur sm:bg-opacity-30"
+        :class="{ 'border-b border-gray-200': showBorder }">
         <div class="w-full sm:w-auto flex items-center mx-4 sm:ml-10">
             <button @click="showNavMenu = !showNavMenu" class="sm:hidden p-2">
                 <svg
@@ -17,7 +17,7 @@
                         d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
             </button>
-            <div class="w-full flex justify-center sm:justify-start sm:mr-8 sm:ml-0">
+            <div class="w-full flex justify-center sm:justify-start mr-8 sm:ml-0">
                 <img
                     src="../assets/images/logo/long-logo.png"
                     class="hidden md:block"
