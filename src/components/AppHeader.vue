@@ -1,5 +1,7 @@
 <template>
-    <header class="flex justify-between items-center sticky top-0 h-16 bg-white">
+    <header
+        class="flex justify-between items-center sticky top-0 h-20 bg-white sm:backdrop-filter sm:backdrop-blur bg-opacity-30"
+        :class="{ 'sm:border-b sm:border-gray-200': showBorder }">
         <div class="w-full sm:w-auto flex items-center mx-4 sm:ml-10">
             <button @click="showNavMenu = !showNavMenu" class="sm:hidden p-2">
                 <svg
@@ -47,7 +49,26 @@ export default {
     data() {
         return {
             showNavMenu: false,
+            showBorder: false,
         };
+    },
+    created() {
+        window.addEventListener('scroll', this.scrolling);
+    },
+    unmounted() {
+        window.removeEventListener('scroll', this.scrolling);
+    },
+    methods: {
+        scrolling() {
+            const bodyScroll = document.body.scrollTop;
+            const htmlScroll = document.documentElement.scrollTop;
+            const scroll = 10;
+            if (bodyScroll > scroll || htmlScroll > scroll) {
+                this.showBorder = true;
+            } else {
+                this.showBorder = false;
+            }
+        },
     },
     // emits: ['toggle'],
 };

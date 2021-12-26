@@ -1,5 +1,6 @@
 <template>
-    <header class="flex w-full p-3 border-b sticky top-0 bg-white">
+    <header
+        class="flex w-full p-3 border-b sticky top-0 bg-white sm:backdrop-filter sm:backdrop-blur bg-opacity-30">
         <button @click.stop="$router.go(-1)">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
