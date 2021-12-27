@@ -34,29 +34,35 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr v-for="(scorer, index) in scorers" :key="index">
-                                <td
-                                    class="px-6 py-4 text-sm text-gray-500 max-w-0 hidden xs:table-cell">
-                                    {{ index + 1 }}
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    <div class="">{{ scorer.player }}</div>
-                                    <div class="text-xs text-gray-400 sm:hidden">
+                        <template v-if="isLoading">
+                            <ScorerSkeleton />
+                        </template>
+                        <template v-else>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr v-for="(scorer, index) in scorers" :key="index">
+                                    <td
+                                        class="px-6 py-4 text-sm text-gray-500 max-w-0 hidden xs:table-cell">
+                                        {{ index + 1 }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        <div class="">{{ scorer.player }}</div>
+                                        <div class="text-xs text-gray-400 sm:hidden">
+                                            {{ scorer.team }}
+                                        </div>
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 text-sm text-gray-500 hidden sm:table-cell">
                                         {{ scorer.team }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500 hidden sm:table-cell">
-                                    {{ scorer.team }}
-                                </td>
-                                <td class="px-6 py-4 text-right text-sm text-gray-500">
-                                    {{ scorer.goal }}
-                                </td>
-                                <td class="px-6 py-4 text-right text-sm text-gray-500">
-                                    {{ scorer.rank }}
-                                </td>
-                            </tr>
-                        </tbody>
+                                    </td>
+                                    <td class="px-6 py-4 text-right text-sm text-gray-500">
+                                        {{ scorer.goal }}
+                                    </td>
+                                    <td class="px-6 py-4 text-right text-sm text-gray-500">
+                                        {{ scorer.rank }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </template>
                     </table>
                 </div>
             </div>
@@ -75,11 +81,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
+import ScorerSkeleton from '@/components/skeleton/ScorerSkeleton.vue';
 
 export default {
     name: 'ScorersPage',
     components: {
         BackToTop,
+        ScorerSkeleton,
     },
     data() {
         return {
@@ -87,6 +95,7 @@ export default {
             fullScorers: [],
             tenScorers: [],
             showLoadMore: true,
+            isLoading: true,
         };
     },
     created() {
@@ -128,6 +137,7 @@ export default {
             this.scorers = newScorers.slice(0, 10);
             this.fullScorers = newScorers;
             this.tenScorers = newScorers.slice(0, 10);
+            this.isLoading = false;
         },
         loadMore() {
             this.scorers = this.fullScorers;
