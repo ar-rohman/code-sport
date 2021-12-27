@@ -20,77 +20,98 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             <div>
-                <div class="flex justify-between mb-1">
-                    <div class="font-bold text-base xs:text-lg">Matches</div>
-                    <div
-                        class="text-sm text-sky-500 self-end cursor-pointer"
-                        @click="matchPage(matchLink)">
-                        View all
-                    </div>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <div
-                        class="px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
-                        v-for="match in matches"
-                        :key="match.id">
-                        <div class="flex justify-between">
-                            <div>{{ match.homeTeam.name }}</div>
-                            <div class="font-bold text-sm">{{ shortDayMonth(match.utcDate) }}</div>
-                        </div>
-                        <div class="flex justify-between">
-                            <div>{{ match.awayTeam.name }}</div>
-                            <div class="text-sm text-gray-500">{{ timeFormat(match.utcDate) }}</div>
+                <template v-if="isMatchLoading">
+                    <HomeMatchSkeleton />
+                </template>
+                <template v-else>
+                    <div class="flex justify-between mb-1">
+                        <div class="font-bold text-base xs:text-lg">Matches</div>
+                        <div
+                            class="text-sm text-sky-500 self-end cursor-pointer"
+                            @click="matchPage(matchLink)">
+                            View all
                         </div>
                     </div>
-                </div>
+                    <div class="flex flex-col gap-4">
+                        <div
+                            class="px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
+                            v-for="match in matches"
+                            :key="match.id">
+                            <div class="flex justify-between">
+                                <div>{{ match.homeTeam.name }}</div>
+                                <div class="font-bold text-sm">
+                                    {{ shortDayMonth(match.utcDate) }}
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <div>{{ match.awayTeam.name }}</div>
+                                <div class="text-sm text-gray-500">
+                                    {{ timeFormat(match.utcDate) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
             <div>
-                <div class="flex justify-between mb-1">
-                    <div class="font-bold text-base xs:text-lg">Results</div>
-                    <div
-                        class="text-sm text-sky-500 self-end cursor-pointer"
-                        @click="matchPage(resultLink)">
-                        View all
-                    </div>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <div
-                        class="px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
-                        v-for="result in results"
-                        :key="result.id">
-                        <div class="flex justify-between">
-                            <div>{{ result.homeTeam.name }}</div>
-                            <div>{{ result.score.fullTime.homeTeam }}</div>
-                        </div>
-                        <div class="flex justify-between">
-                            <div>{{ result.awayTeam.name }}</div>
-                            <div>{{ result.score.fullTime.awayTeam }}</div>
+                <template v-if="isMatchLoading">
+                    <HomeMatchSkeleton />
+                </template>
+                <template v-else>
+                    <div class="flex justify-between mb-1">
+                        <div class="font-bold text-base xs:text-lg">Results</div>
+                        <div
+                            class="text-sm text-sky-500 self-end cursor-pointer"
+                            @click="matchPage(resultLink)">
+                            View all
                         </div>
                     </div>
-                </div>
+                    <div class="flex flex-col gap-4">
+                        <div
+                            class="px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
+                            v-for="result in results"
+                            :key="result.id">
+                            <div class="flex justify-between">
+                                <div>{{ result.homeTeam.name }}</div>
+                                <div>{{ result.score.fullTime.homeTeam }}</div>
+                            </div>
+                            <div class="flex justify-between">
+                                <div>{{ result.awayTeam.name }}</div>
+                                <div>{{ result.score.fullTime.awayTeam }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
             <div>
-                <div class="flex justify-between mb-1">
-                    <div class="font-bold text-base xs:text-lg">Top Scorer</div>
-                    <div class="text-sm text-sky-500 self-end cursor-pointer" @click="scorerPage">
-                        View all
-                    </div>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <div
-                        class="flex justify-between px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
-                        v-for="(scorer, index) in scorers"
-                        :key="index">
-                        <div class="flex justify-between flex-col">
-                            <div>{{ scorer.player }}</div>
-                            <div class="text-sm text-gray-500">{{ scorer.team }}</div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="font-bold">{{ scorer.goal }}</div>
-                            <div class="text-xs">Goals</div>
+                <template v-if="isScorerLoading">
+                    <HomeScorerSkeleton />
+                </template>
+                <template v-else>
+                    <div class="flex justify-between mb-1">
+                        <div class="font-bold text-base xs:text-lg">Top Scorer</div>
+                        <div
+                            class="text-sm text-sky-500 self-end cursor-pointer"
+                            @click="scorerPage">
+                            View all
                         </div>
                     </div>
-                </div>
+                    <div class="flex flex-col gap-4">
+                        <div
+                            class="flex justify-between px-6 py-4 rounded-lg shadow-md border border-gray-200 bg-white"
+                            v-for="(scorer, index) in scorers"
+                            :key="index">
+                            <div class="flex justify-between flex-col">
+                                <div class="mb-1">{{ scorer.player }}</div>
+                                <div class="text-sm text-gray-500">{{ scorer.team }}</div>
+                            </div>
+                            <div class="flex flex-col items-center justify-center">
+                                <div class="font-bold">{{ scorer.goal }}</div>
+                                <div class="text-xs">Goals</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -98,9 +119,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import HomeMatchSkeleton from '@/components/skeleton/HomeMatchSkeleton.vue';
+import HomeScorerSkeleton from '@/components/skeleton/HomeScorerSkeleton.vue';
 
 export default {
     name: 'HomePage',
+    components: {
+        HomeMatchSkeleton,
+        HomeScorerSkeleton,
+    },
     data() {
         return {
             matches: [],
@@ -109,6 +136,8 @@ export default {
             season: null,
             matchLink: null,
             resultLink: null,
+            isMatchLoading: true,
+            isScorerLoading: true,
         };
     },
     created() {
@@ -176,6 +205,7 @@ export default {
             const startSeason = season.startDate.split('-')[0];
             const endSeason = season.endDate.split('-')[0];
             this.season = `${startSeason} - ${endSeason}`;
+            this.isMatchLoading = false;
         },
         scorerData(scorers) {
             scorers.sort((a, b) => b.numberOfGoals - a.numberOfGoals);
@@ -187,6 +217,7 @@ export default {
                 };
             });
             this.scorers = newScorers.slice(0, 5);
+            this.isScorerLoading = false;
         },
         ...mapActions({
             setMatch: 'match/set',

@@ -1,6 +1,6 @@
 <template>
     <header
-        class="flex justify-between items-center sticky top-0 h-20 bg-white sm:backdrop-filter sm:backdrop-blur sm:bg-opacity-30"
+        class="flex justify-between items-center sticky top-0 z-50 h-20 bg-white sm:backdrop-filter sm:backdrop-blur sm:bg-opacity-30"
         :class="{ 'border-b border-gray-200': showBorder }">
         <div class="w-full sm:w-auto flex items-center mx-4 sm:ml-10">
             <button @click="showNavMenu = !showNavMenu" class="sm:hidden p-2">
