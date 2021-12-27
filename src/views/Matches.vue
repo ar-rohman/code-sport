@@ -112,7 +112,6 @@ export default {
     },
     created() {
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
-        // this.getMatches();
         this.getCountry();
     },
     beforeUpdate() {
@@ -160,7 +159,6 @@ export default {
                     const { matches } = response.data;
                     this.matchData(matches);
                     this.setMatch(matches);
-                    // console.log(dataMatches);
                 })
                 .catch((error) => {
                     console.log(error.response);

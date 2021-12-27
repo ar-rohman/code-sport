@@ -99,7 +99,6 @@ export default {
     },
     methods: {
         async fetchScorer() {
-            console.log(this.getScorer);
             await this.$axios('competitions/2001/scorers?limit=1000000')
                 .then((response) => {
                     const { scorers } = response.data;

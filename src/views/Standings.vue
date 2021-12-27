@@ -158,7 +158,6 @@ export default {
     },
     created() {
         this.getStanding.length > 0 ? this.standingData(this.getStanding) : this.fetchStanding();
-        // this.getStandings();
     },
     computed: {
         ...mapGetters({

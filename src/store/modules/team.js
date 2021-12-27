@@ -25,7 +25,6 @@ export default {
     },
     getters: {
         getTeam: (state) => state.team,
-        // getTeamDetail: (state) => state.teamDetail,
         getTeamDetail: (state) => (id) => {
             return state.teamDetail.filter((item) => +item.id === +id);
         },

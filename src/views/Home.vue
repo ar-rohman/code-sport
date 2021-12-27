@@ -112,7 +112,6 @@ export default {
         };
     },
     created() {
-        // this.getMatches();
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
         this.getScorer.length > 0 ? this.scorerData(this.getScorer) : this.fetchScorer();
     },
@@ -131,7 +130,23 @@ export default {
                     this.setMatch(data);
                 })
                 .catch((error) => {
-                    console.log(error.response);
+                    // console.log('ini eror', error.toJSON());
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log('response.data', error.response.data);
+                        console.log('response.status', error.response.status);
+                        console.log('response.headers', error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                        // http.ClientRequest in node.js
+                        console.log('request', error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
+                    }
+                    console.log('config', error.config);
                 });
         },
         async fetchScorer() {
@@ -142,7 +157,7 @@ export default {
                     this.setScorer(scorers);
                 })
                 .catch((error) => {
-                    console.log(error.response);
+                    console.log(error.toJSON());
                 });
         },
         matchData(match) {

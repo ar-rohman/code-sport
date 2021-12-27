@@ -168,25 +168,10 @@ export default {
     },
     created() {
         this.teamId = this.$route.params.id;
-        // this.teamById ? this.teamDetailData(this.teamById) : this.fetchTeamDetail();
-        if (
-            this.teamById().length > 0 // &&
-            // Object.keys(this.teamById()).length === 0 &&
-            // Object.getPrototypeOf(this.teamById()) === Object.prototype
-        ) {
-            console.log('nah');
-            console.log(this.teamById());
-            this.teamDetailData(this.teamById()[0]);
-        } else {
-            console.log('salah bos');
-            console.log(this.teamById());
-            this.fetchTeamDetail();
-        }
-        // this.fetchTeamDetail();
-        // this.teamById();
+        this.teamById().length > 0
+            ? this.teamDetailData(this.teamById()[0])
+            : this.fetchTeamDetail();
         this.getTeamDetail;
-        console.log(this.getTeamDetail(this.teamId));
-        // this.teamByIda();
     },
     computed: {
         ...mapGetters('team', ['getTeamDetail']),
@@ -194,7 +179,6 @@ export default {
     methods: {
         teamById() {
             return this.$store.getters['team/getTeamDetail'](this.teamId);
-            // return this.getTeamDetail(this.teamId);
         },
         stringFormat(string) {
             if (!string) return;

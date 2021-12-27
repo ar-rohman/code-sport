@@ -7,8 +7,3 @@ import axios from './plugins/axios';
 import './assets/styles/index.css';
 
 createApp(App).use(store).use(router).use(axios).mount('#app');
-// const app = createApp(App);
-// app.use(store);
-// app.use(router);
-// app.use(axios);
-// app.mount('#app');

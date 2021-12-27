@@ -70,6 +70,5 @@ export default {
             }
         },
     },
-    // emits: ['toggle'],
 };
 </script>
