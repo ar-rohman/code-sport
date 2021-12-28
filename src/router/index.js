@@ -4,37 +4,37 @@ import Home from '../views/Home.vue';
 const routes = [
     {
         path: '/',
-        name: 'HomePage',
+        name: 'Home',
         component: Home,
     },
     {
         path: '/matches',
-        name: 'MatchesPage',
+        name: 'Matches',
         component: () => import(/* webpackChunkName: "matches" */ '../views/Matches.vue'),
     },
     {
         path: '/standings',
-        name: 'StandingsPage',
+        name: 'Standings',
         component: () => import(/* webpackChunkName: "standings" */ '../views/Standings.vue'),
     },
     {
         path: '/teams',
-        name: 'TeamsPage',
+        name: 'Teams',
         component: () => import(/* webpackChunkName: "teams" */ '../views/Teams.vue'),
     },
     {
         path: '/team/:id',
-        name: 'TeamDetailPage',
+        name: 'Team Detail',
         component: () => import(/* webpackChunkName: "teams" */ '../views/TeamDetail.vue'),
     },
     {
         path: '/scorers',
-        name: 'ScorersPage',
+        name: 'Scorers',
         component: () => import(/* webpackChunkName: "scorers" */ '../views/Scorers.vue'),
     },
     {
         path: '/about',
-        name: 'AboutPage',
+        name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     },
 ];
@@ -42,6 +42,11 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
+});
+
+const defaultTitle = 'Code Sport';
+router.afterEach((to) => {
+    document.title = to.name ? `${to.name} - ${defaultTitle}` : defaultTitle;
 });
 
 export default router;
