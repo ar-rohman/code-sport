@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <template v-if="isLoading">
+        <TeamDetailSkeleton />
+    </template>
+    <template v-else>
         <div class="flex gap-4 mb-10">
             <div>
                 <img
@@ -146,24 +149,27 @@
                 </div>
             </div>
         </div>
-        <back-to-top />
-    </div>
+    </template>
+    <back-to-top />
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
+import TeamDetailSkeleton from '@/components/skeleton/TeamDetailSkeleton.vue';
 
 export default {
     name: 'TeamDetailPage',
     components: {
         BackToTop,
+        TeamDetailSkeleton,
     },
     data() {
         return {
             teamId: null,
             team: [],
             isSquad: false,
+            isLoading: true,
         };
     },
     created() {
@@ -204,6 +210,7 @@ export default {
         },
         teamDetailData(teamDetail) {
             this.team = teamDetail;
+            this.isLoading = false;
         },
         ...mapActions('team', ['setTeamDetail']),
     },
