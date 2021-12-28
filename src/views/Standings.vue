@@ -1,6 +1,9 @@
 <template>
-    <div>
-        <h1 class="font-bold text-xl mb-8">Standings</h1>
+    <h1 class="font-bold text-xl mb-8">Standings</h1>
+    <template v-if="isLoading">
+        <StandingsSkeleton />
+    </template>
+    <template v-else>
         <div class="flex flex-col mb-10" v-for="(value, index) in standings" :key="index">
             <div class="mb-2 font-semibold text-gray-600">{{ stringFormat(value.group) }}</div>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -138,22 +141,25 @@
                 </div>
             </div>
         </div>
-        <back-to-top />
-    </div>
+    </template>
+    <back-to-top />
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
+import StandingsSkeleton from '@/components/skeleton/StandingsSkeleton.vue';
 
 export default {
     name: 'StandingsPage',
     components: {
         BackToTop,
+        StandingsSkeleton,
     },
     data() {
         return {
             standings: null,
+            isLoading: true,
         };
     },
     created() {
@@ -191,6 +197,7 @@ export default {
             this.standings = standing.filter((item) => {
                 return item.table.length > 0;
             });
+            this.isLoading = false;
         },
         ...mapActions({
             setStanding: 'standing/set',
