@@ -1,33 +1,36 @@
 <template>
     <div>
         <h1 class="font-bold text-xl mb-8">Teams</h1>
-        <div
-            class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4">
+        <template v-if="isLoading">
+            <TeamSkeleton />
+        </template>
+        <template v-else>
             <div
-                tabindex="0"
-                v-for="team in teams"
-                :key="team.id"
-                @click="teamDetail(team.id)"
-                class="flex flex-col justify-between gap-4 p-4 shadow rounded-lg border border-gray-200 cursor-pointer group hover:bg-sky-100 focus:bg-sky-200 focus:outline-none">
-                <div class="flex items-center justify-center">
-                    <img
-                        :src="team.image"
-                        :alt="team.name"
-                        width="80"
-                        ssheight="50"
-                        v-if="team.isValidImage" />
-                    <img
-                        src="../assets/images/shield-logo.svg"
-                        :alt="team.name"
-                        width="80"
-                        ssheight="50"
-                        v-else />
-                </div>
-                <div class="group-hover:text-sky-600 group-focus:text-sky-700 text-center">
-                    {{ team.shortName }}
+                class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4">
+                <div
+                    tabindex="0"
+                    v-for="team in teams"
+                    :key="team.id"
+                    @click="teamDetail(team.id)"
+                    class="flex flex-col justify-between gap-4 p-4 shadow rounded-lg border border-gray-200 cursor-pointer group hover:bg-sky-100 focus:bg-sky-200 focus:outline-none">
+                    <div class="flex items-center justify-center">
+                        <img
+                            class="object-contain w-24 h-24"
+                            :src="team.image"
+                            :alt="team.name"
+                            v-if="team.isValidImage" />
+                        <img
+                            class="object-contain w-24 h-24"
+                            src="../assets/images/shield-logo.svg"
+                            :alt="team.name"
+                            v-else />
+                    </div>
+                    <div class="group-hover:text-sky-600 group-focus:text-sky-700 text-center">
+                        {{ team.shortName }}
+                    </div>
                 </div>
             </div>
-        </div>
+        </template>
         <back-to-top />
     </div>
 </template>
@@ -35,15 +38,18 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BackToTop from '@/components/BackToTop.vue';
+import TeamSkeleton from '@/components/skeleton/TeamSkeleton.vue';
 
 export default {
     name: 'TeamsPage',
     components: {
         BackToTop,
+        TeamSkeleton,
     },
     data() {
         return {
             teams: [],
+            isLoading: true,
         };
     },
     created() {
@@ -78,6 +84,7 @@ export default {
                 });
             });
             this.teams = newTeams;
+            this.isLoading = false;
         },
         ...mapActions({
             setTeam: 'team/setTeam',
