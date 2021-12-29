@@ -122,12 +122,23 @@ export default {
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
         this.getCountry();
     },
-    beforeUpdate() {
-        var section = this.$router.currentRoute.value.hash.replace('#', '');
+    mounted() {
+        const section = this.$router.currentRoute.value.hash.replace('#', '');
         if (section) {
             this.$nextTick(() => {
-                const sectionId = window.document.getElementById(section);
-                sectionId.scrollIntoView({ behavior: 'smooth' });
+                const sectionId = document.getElementById(section);
+                if (sectionId) {
+                    this.$nextTick(() => {
+                        const headerOffset = 100;
+                        const elementPosition = sectionId.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth',
+                        });
+                    });
+                }
             });
         }
     },
@@ -239,6 +250,9 @@ export default {
             // Tests whether at least one element is true
             // make sure that is null and not 0
             return someArray.some((element) => (element === 0 ? true : !!element));
+        },
+        scrollToView() {
+            //
         },
     },
 };
