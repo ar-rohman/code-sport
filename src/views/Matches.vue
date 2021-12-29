@@ -52,7 +52,7 @@
                                     <template v-for="(match, index) in dataMatch.data" :key="index">
                                         <tr class="sm:hidden">
                                             <td class="px-6 pt-4 text-xs text-gray-400" colspan="2">
-                                                {{ dateFormat(match.utcDate) }}
+                                                {{ dateFormat(match.utcDate, country) }}
                                             </td>
                                             <td
                                                 class="px-6 pt-4 text-xs text-right text-gray-400"
@@ -63,7 +63,7 @@
                                         <tr class="border-b border-gray-200">
                                             <td
                                                 class="px-6 pb-4 sm:py-4 text-sm text-gray-500 hidden sm:table-cell">
-                                                {{ dateFormat(match.utcDate) }}
+                                                {{ dateFormat(match.utcDate, country) }}
                                             </td>
                                             <td class="px-6 py-4 text-right text-sm text-gray-500">
                                                 {{ match.homeTeam }}
@@ -118,7 +118,7 @@ export default {
             isLoading: true,
         };
     },
-    inject: ['stringFormat'],
+    inject: ['stringFormat', 'dateFormat'],
     created() {
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
         this.getCountry();
@@ -148,19 +148,6 @@ export default {
         }),
     },
     methods: {
-        dateFormat(date) {
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // get timezone eg. Asia/Jakarta
-            return new Intl.DateTimeFormat(this.country, {
-                hour12: false,
-                year: '2-digit',
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                timeZoneName: 'short',
-                timeZone: timezone,
-            }).format(new Date(date));
-        },
         async fetchMatch() {
             await this.$axios('competitions/2001/matches')
                 .then((response) => {

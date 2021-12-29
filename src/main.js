@@ -6,6 +6,7 @@ import store from './store';
 import axios from './plugins/axios';
 import './assets/styles/index.css';
 import stringFormat from './helpers/stringFormat';
+import { timeFormat, dateFormat, shortDayMonth } from './helpers/dateFormat';
 
 // createApp(App).use(store).use(router).use(axios).mount('#app');
 const app = createApp(App);
@@ -13,4 +14,7 @@ app.use(store);
 app.use(router);
 app.use(axios);
 app.provide('stringFormat', stringFormat);
+app.provide('timeFormat', timeFormat);
+app.provide('dateFormat', dateFormat);
+app.provide('shortDayMonth', shortDayMonth);
 app.mount('#app');

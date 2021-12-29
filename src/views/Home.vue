@@ -140,6 +140,7 @@ export default {
             isScorerLoading: true,
         };
     },
+    inject: ['timeFormat', 'shortDayMonth'],
     created() {
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
         this.getScorer.length > 0 ? this.scorerData(this.getScorer) : this.fetchScorer();
@@ -228,19 +229,6 @@ export default {
         },
         scorerPage() {
             this.$router.push({ path: `/scorers` });
-        },
-        shortDayMonth(date) {
-            const dt = new Date(date);
-            const day = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(dt);
-            const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(dt);
-            return `${day} ${month}`;
-        },
-        timeFormat(date) {
-            return new Intl.DateTimeFormat('en', {
-                hour12: false,
-                hour: 'numeric',
-                minute: 'numeric',
-            }).format(new Date(date));
         },
     },
 };
