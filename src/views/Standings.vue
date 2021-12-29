@@ -162,6 +162,7 @@ export default {
             isLoading: true,
         };
     },
+    inject: ['stringFormat'],
     created() {
         this.getStanding.length > 0 ? this.standingData(this.getStanding) : this.fetchStanding();
     },
@@ -171,17 +172,6 @@ export default {
         }),
     },
     methods: {
-        stringFormat(string) {
-            if (!string) return;
-            // Replace underscore to space
-            const replaceString = string.replace(/_/g, ' ');
-            // Capitalized each first word
-            const capitalized = replaceString.replace(
-                /\w\S*/g,
-                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-            );
-            return capitalized;
-        },
         async fetchStanding() {
             await this.$axios('competitions/2001/standings')
                 .then((response) => {

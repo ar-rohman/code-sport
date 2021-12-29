@@ -118,6 +118,7 @@ export default {
             isLoading: true,
         };
     },
+    inject: ['stringFormat'],
     created() {
         this.getMatch.length > 0 ? this.matchData(this.getMatch) : this.fetchMatch();
         this.getCountry();
@@ -147,17 +148,6 @@ export default {
         }),
     },
     methods: {
-        stringFormat(string) {
-            if (!string) return;
-            // Replace underscore to space
-            const replaceString = string.replace(/_/g, ' ');
-            // Capitalized each first word
-            const capitalized = replaceString.replace(
-                /\w\S*/g,
-                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-            );
-            return capitalized;
-        },
         dateFormat(date) {
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // get timezone eg. Asia/Jakarta
             return new Intl.DateTimeFormat(this.country, {
