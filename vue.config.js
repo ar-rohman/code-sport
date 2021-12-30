@@ -13,7 +13,7 @@ module.exports = {
             description: 'Football competition information',
             orientation: 'any',
             display: 'standalone',
-            start_url: '/index.html',
+            start_url: '/',
             background_color: '#404040',
             theme_color: '#0E7490',
         },
